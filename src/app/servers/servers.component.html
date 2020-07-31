@@ -1,18 +1,35 @@
 <label>{{ serverName }}</label>
-<input type="text" class="form-control" (input)="onUpdateServerName($event)" />
+<!-- <input type="text" class="form-control" (input)="onUpdateServerName($event)" /> -->
+
+<input 
+    type="text" 
+    class="form-control" 
+    [(ngModel)]="serverName">
 
 <button 
     class="btn btn-primary" 
     [disabled]="!allowNewServer"
-    (mouseover)="onCreateServer()"
+    (click)="onCreateServer()"
 >Add Server</button>
 
 <br/><br/>
 
 <!-- <p [hidden]="!allowNewServer"></p> -->
-<p>{{ serverCreationStatus }}</p>
+<p *ngIf="severCreated; else noServer">{{ serverCreationStatus }}</p>
+<ng-template #noServer><p>No server is created</p></ng-template>
 
 <br/><br/>
 
-<app-server></app-server>
-<app-server></app-server>
+<app-server *ngFor="let server of servers"></app-server>
+
+<hr/>
+
+<label>{{name}}</label>
+<input [(ngModel)]="name" />
+<button (click)="resetName()" [disabled]="isNameEmpty()">Reset</button>
+
+<hr/>
+
+<button (click)="toggleDisplayDetail()">Display Details</button>
+<p [hidden]="hidden">This is the detail paragraph</p>
+<p *ngFor="let number of click" [ngClass]="{getBlue: number >= 5}" [ngStyle]="{ color: getTextColor(number)}">{{number}}</p>
